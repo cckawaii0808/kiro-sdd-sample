@@ -1,0 +1,308 @@
+openapi: 3.0.0
+info:
+  title: My Project API
+  description: 登入計算機 Demo API 文件
+  version: 1.0.0
+  contact:
+    name: API Support
+servers:
+  - url: http://localhost:3001
+    description: 開發環境
+
+tags:
+  - name: 認證
+    description: 使用者註冊和登入
+  - name: 計算機
+    description: 計算機功能和歷史記錄
+
+paths:
+  /api/auth/register:
+    post:
+      tags:
+        - 認證
+      summary: 註冊新使用者
+      description: 建立新的使用者帳號
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - username
+                - password
+              properties:
+                username:
+                  type: string
+                  example: testuser
+                  description: 使用者名稱（唯一）
+                password:
+                  type: string
+                  format: password
+                  example: password123
+                  description: 密碼（至少 6 個字元）
+      responses:
+        '201':
+          description: 註冊成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 註冊成功
+                  token:
+                    type: string
+                    example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+        '400':
+          description: 請求錯誤
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api/auth/login:
+    post:
+      tags:
+        - 認證
+      summary: 使用者登入
+      description: 使用帳號密碼登入，取得 JWT token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - username
+                - password
+              properties:
+                username:
+                  type: string
+                  example: testuser
+                password:
+                  type: string
+                  format: password
+                  example: password123
+                rememberMe:
+                  type: boolean
+                  example: false
+                  description: 是否記住登入（延長 token 有效期）
+      responses:
+        '200':
+          description: 登入成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+                  user:
+                    $ref: '#/components/schemas/User'
+        '401':
+          description: 認證失敗
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api/auth/me:
+    get:
+      tags:
+        - 認證
+      summary: 取得當前使用者資訊
+      description: 使用 JWT token 取得當前登入使用者的資訊
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: 成功取得使用者資訊
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '401':
+          description: 未授權
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api/calculator/calculate:
+    post:
+      tags:
+        - 計算機
+      summary: 執行計算
+      description: 執行數學運算並儲存到歷史記錄
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - operation
+                - operand1
+                - operand2
+              properties:
+                operation:
+                  type: string
+                  enum: [add, subtract, multiply, divide]
+                  example: add
+                  description: 運算類型
+                operand1:
+                  type: number
+                  example: 10
+                  description: 第一個運算元
+                operand2:
+                  type: number
+                  example: 5
+                  description: 第二個運算元
+      responses:
+        '200':
+          description: 計算成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: number
+                    example: 15
+                  calculation:
+                    $ref: '#/components/schemas/Calculation'
+        '400':
+          description: 請求錯誤（例如除以零）
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: 未授權
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api/calculator/history:
+    get:
+      tags:
+        - 計算機
+      summary: 取得計算歷史記錄
+      description: 取得當前使用者的所有計算歷史記錄
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: 成功取得歷史記錄
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  history:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Calculation'
+        '401':
+          description: 未授權
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    
+    delete:
+      tags:
+        - 計算機
+      summary: 清除計算歷史記錄
+      description: 刪除當前使用者的所有計算歷史記錄
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: 成功清除歷史記錄
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 歷史記錄已清除
+        '401':
+          description: 未授權
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 在 Header 中加入 Authorization Bearer token
+
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 550e8400-e29b-41d4-a716-446655440000
+        username:
+          type: string
+          example: testuser
+        createdAt:
+          type: string
+          format: date-time
+          example: 2024-12-02T10:00:00Z
+
+    Calculation:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 660e8400-e29b-41d4-a716-446655440000
+        userId:
+          type: string
+          example: 550e8400-e29b-41d4-a716-446655440000
+        operation:
+          type: string
+          enum: [add, subtract, multiply, divide]
+          example: add
+        operand1:
+          type: number
+          example: 10
+        operand2:
+          type: number
+          example: 5
+        result:
+          type: number
+          example: 15
+        createdAt:
+          type: string
+          format: date-time
+          example: 2024-12-02T10:05:00Z
+
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          example: 錯誤訊息
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+              message:
+                type: string
