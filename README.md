@@ -123,6 +123,41 @@ kiro-cli chat --agent project-dev
 - `/load` - 載入對話
 - `Ctrl+T` - 進入/退出 Tangent Mode
 
+## 部署
+
+### 部署教學網站（GitHub Pages）
+
+```bash
+cd website
+npm run deploy
+```
+
+網站將自動部署到：https://cckawaii0808.github.io/kiro-sdd-sample/
+
+### 部署後端 API（Render）
+
+1. **推送程式碼到 GitHub**：
+   ```bash
+   git push origin main
+   ```
+
+2. **在 Render 建立 Blueprint**：
+   - 進入 https://dashboard.render.com
+   - 點擊 **New +** → **Blueprint**
+   - 選擇 `cckawaii0808/kiro-sdd-sample` 倉庫
+   - **Branch** 選擇 `main`（不是 gh-pages）
+   - **Blueprint Name** 填寫 `kiro-sdd-sample`
+   - 點擊 **Apply**
+
+3. **等待部署完成**（約 2-3 分鐘）
+
+4. **取得 API 網址**：
+   ```
+   https://kiro-sdd-sample-api.onrender.com
+   ```
+
+詳細說明請參考 [RENDER_DEPLOYMENT.md](RENDER_DEPLOYMENT.md)
+
 ## 規格文件
 
 - [專案規格](docs/spec.md) - 功能需求、API 設計、資料模型
@@ -137,4 +172,4 @@ kiro-cli chat --agent project-dev
 
 ## 授權
 
-[選擇適合的授權]
+MIT
