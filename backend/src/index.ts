@@ -13,7 +13,13 @@ const app = express();
 const PORT = process.env.PORT || projectConfig.backend.port;
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: [
+    'http://localhost:3000',
+    'https://cckawaii0808.github.io'
+  ],
+  credentials: true
+}));
 app.use(express.json());
 
 // API Documentation
