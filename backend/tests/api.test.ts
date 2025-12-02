@@ -1,4 +1,10 @@
 import request from 'supertest';
+
+// Mock Scalar to avoid ESM issues in Jest
+jest.mock('@scalar/express-api-reference', () => ({
+  apiReference: () => (req: any, res: any) => res.send('API Docs'),
+}));
+
 import app from '../src/index';
 import { db } from '../src/models/db';
 
