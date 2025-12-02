@@ -2,8 +2,11 @@ import React, { useState, useEffect } from 'react';
 import Layout from '@theme/Layout';
 import CalculatorDemo from '@site/src/components/demo/CalculatorDemo';
 import LoginForm from '@site/src/components/demo/LoginForm';
+import projectConfig from '../../../project.config.json';
 
-const API_URL = 'http://localhost:3001/api';
+const API_URL = (process.env.NODE_ENV === 'production' 
+  ? projectConfig.frontend.apiUrlProduction 
+  : projectConfig.frontend.apiUrl) + projectConfig.backend.apiPrefix;
 
 export default function DemoPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);

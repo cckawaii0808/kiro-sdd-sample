@@ -19,6 +19,7 @@
   },
   "frontend": {
     "port": 3000,
-    "apiUrl": "http://localhost:3001"
+    "apiUrl": "http://localhost:3001",
+    "apiUrlProduction": "https://kiro-sdd-sample-api.onrender.com"
   }
 }
