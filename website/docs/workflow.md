@@ -234,6 +234,6 @@ A: 可以手動調整，或請 Kiro 重新規劃優先順序
 
 ## 下一步
 
-- 查看[實際範例](/docs/examples/user-api)
-- 學習[最佳實踐](/docs/best-practices)
+- 查看[實際範例](/docs/examples/this-website)
 - 了解[命令參考](/docs/commands)
+- 學習[Agent 配置](/docs/examples/agent-config)
