@@ -1,0 +1,24 @@
+{
+  "name": "kiro-sdd-sample",
+  "displayName": "Kiro SDD Sample",
+  "description": "Kiro CLI 規格驅動開發教學網站",
+  "version": "1.0.0",
+  "github": {
+    "organization": "cckawaii0808",
+    "repository": "kiro-sdd-sample",
+    "url": "https://github.com/cckawaii0808/kiro-sdd-sample"
+  },
+  "deployment": {
+    "url": "https://cckawaii0808.github.io",
+    "baseUrl": "/kiro-sdd-sample/"
+  },
+  "backend": {
+    "port": 3001,
+    "apiPrefix": "/api",
+    "jwtSecret": "your-secret-key-change-in-production"
+  },
+  "frontend": {
+    "port": 3000,
+    "apiUrl": "http://localhost:3001"
+  }
+}

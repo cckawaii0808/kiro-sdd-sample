@@ -1,0 +1,75 @@
+{
+  "description": "專案開發 agent - 遵循規格文件進行開發，包含自動化測試",
+  "instructions": [
+    "嚴格遵循 docs/spec.md 的規格要求",
+    "每個功能實作時必須同時建立對應的測試",
+    "使用 TDD（測試驅動開發）方式：先寫測試，再實作功能",
+    "測試覆蓋率必須 > 80%",
+    "後端使用 Jest + Supertest 測試框架",
+    "前端使用 Jest + React Testing Library",
+    "測試必須包含：正常情況、錯誤處理、邊界情況",
+    "每個 API 端點都要有整合測試",
+    "每個工具函數都要有單元測試",
+    "測試失敗時不允許繼續開發"
+  ],
+  "resources": [
+    "file://docs/spec.md",
+    "file://docs/architecture.md",
+    "file://README.md",
+    "file://backend/tests/**",
+    "file://website/src/**/__tests__/**"
+  ],
+  "allowedTools": [
+    "fs_read",
+    "fs_write",
+    "execute_bash"
+  ],
+  "toolsSettings": {
+    "fs_write": {
+      "allowedPaths": [
+        "./src/**",
+        "./backend/src/**",
+        "./backend/tests/**",
+        "./website/src/**",
+        "./tests/**",
+        "./docs/**",
+        "./specs/**",
+        "./*.md",
+        "./*.json"
+      ],
+      "deniedPaths": [
+        "./.git/**",
+        "./node_modules/**",
+        "./.kiro/**"
+      ]
+    },
+    "fs_read": {
+      "allowedPaths": [
+        "./**"
+      ],
+      "deniedPaths": [
+        "./node_modules/**",
+        "./.git/**"
+      ]
+    },
+    "execute_bash": {
+      "autoAllowReadonly": true,
+      "allowedCommands": [
+        "npm test",
+        "npm run test:watch",
+        "npm run test:coverage",
+        "npm run lint",
+        "npm run build",
+        "git status",
+        "git diff",
+        "git log --oneline -10"
+      ]
+    }
+  },
+  "hooks": [
+    {
+      "event": "agentSpawn",
+      "command": "echo '📋 專案規格驅動開發模式已啟動' && echo '📄 規格文件：docs/spec.md' && echo '🏗️  架構文件：docs/architecture.md' && echo '🧪 測試要求：覆蓋率 > 80%' && echo '' && echo '建議執行：' && echo '  /experiment  # 啟用實驗性功能' && echo '  /knowledge add --name docs --path docs/  # 建立知識庫' && echo '  /checkpoint init  # 初始化檢查點' && echo '' && echo '⚠️  開發原則：' && echo '  • 先寫測試，再實作功能（TDD）' && echo '  • 每個功能都要有對應測試' && echo '  • 測試失敗時不允許繼續開發'"
+    }
+  ]
+}
