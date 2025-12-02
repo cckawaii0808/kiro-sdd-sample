@@ -14,8 +14,7 @@
   },
   "backend": {
     "port": 3001,
-    "apiPrefix": "/api",
-    "jwtSecret": "your-secret-key-change-in-production"
+    "apiPrefix": "/api"
   },
   "frontend": {
     "port": 3000,
