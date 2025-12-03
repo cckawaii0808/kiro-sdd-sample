@@ -55,7 +55,7 @@ git init
 - 測試：Jest
 ```
 
-完整規格請參考：[完整規格文件](https://github.com/your-repo/examples/login-calculator/docs/spec.md)
+完整規格請參考：[完整規格文件](https://github.com/cckawaii0808/kiro-sdd-sample/blob/main/docs/spec.md)
 
 ### 步驟 3：啟動 Kiro CLI
 
@@ -254,7 +254,7 @@ export const authMiddleware = (req, res, next) => {
 
 **認證路由** (`backend/src/routes/auth.ts`)：
 
-完整程式碼請參考：[auth.ts](https://github.com/your-repo/examples/login-calculator/backend/src/routes/auth.ts)
+完整程式碼請參考：[auth.ts](https://github.com/cckawaii0808/kiro-sdd-sample/blob/main/backend/src/routes/auth.ts)
 
 ### 任務 5-8：實作計算機功能
 
@@ -277,7 +277,7 @@ export function evaluateExpression(expression: string): number {
 
 **計算機路由** (`backend/src/routes/calculator.ts`)：
 
-完整程式碼請參考：[calculator.ts](https://github.com/your-repo/examples/login-calculator/backend/src/routes/calculator.ts)
+完整程式碼請參考：[calculator.ts](https://github.com/cckawaii0808/kiro-sdd-sample/blob/main/backend/src/routes/calculator.ts)
 
 ### 任務 9：撰寫測試
 
@@ -320,11 +320,11 @@ npm test
 
 **LoginForm 元件** (`frontend/src/components/LoginForm.tsx`)：
 
-完整程式碼請參考：[LoginForm.tsx](https://github.com/your-repo/examples/login-calculator/frontend/src/components/LoginForm.tsx)
+完整程式碼請參考：[LoginForm.tsx](https://github.com/cckawaii0808/kiro-sdd-sample/blob/main/website/src/components/demo/LoginForm.tsx)
 
 **Calculator 元件** (`frontend/src/components/Calculator.tsx`)：
 
-完整程式碼請參考：[Calculator.tsx](https://github.com/your-repo/examples/login-calculator/frontend/src/components/Calculator.tsx)
+完整程式碼請參考：[CalculatorDemo.tsx](https://github.com/cckawaii0808/kiro-sdd-sample/blob/main/website/src/components/demo/CalculatorDemo.tsx)
 
 ### 任務 13：實作 API 服務
 
@@ -645,8 +645,8 @@ npm run build
 ## 完整原始碼
 
 完整的專案原始碼可以在這裡找到：
-- [GitHub Repository](https://github.com/your-repo/examples/login-calculator)
-- [線上 Demo](https://demo.yourdomain.com)
+- [GitHub Repository](https://github.com/cckawaii0808/kiro-sdd-sample)
+- [線上 Demo](https://cckawaii0808.github.io/kiro-sdd-sample/demo)
 
 ## 常見問題
 
